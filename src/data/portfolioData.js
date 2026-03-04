@@ -1,5 +1,9 @@
 import intern2 from "../../src/assets/images/intern2.png";
-
+import pneumoniaGradcam from "../assets/images/projects/pneumonia/pneumonia-gradcam.png";
+import pneumoniaTraining from "../assets/images/projects/pneumonia/pneumonia-training.png";
+import pneumoniaConfusion from "../assets/images/projects/pneumonia/pneumonia-confusion.png";
+import pneumoniaSamples from "../assets/images/projects/pneumonia/pneumonia-samples.png";
+import pneumoniaFlask from "../assets/images/projects/pneumonia/pneumonia-flask.png";
 
 // ============================================================
 //  PORTFOLIO DATA — Edit all your content here
@@ -218,7 +222,7 @@ export const projects = [
     loomId: "ea1a3896df7241a4b46145509092cb49",
     images: [],
   },
-    {
+  {
     id: "pneumonia-ai",
     title: "Pneumonia Detection with Grad-CAM Explainability",
     badge: "AI/ML",
@@ -234,8 +238,22 @@ export const projects = [
       "Docker",
       "Transfer Learning",
     ],
-    github: null,
-    images: [],
+    github:
+      "https://github.com/yasurirashmika/pneumonia-classification-cnn.git",
+    images: [
+      pneumoniaFlask,
+      pneumoniaGradcam,
+      pneumoniaTraining,
+      pneumoniaConfusion,
+      pneumoniaSamples,
+    ],
+    imageLabels: [
+      "Flask App — Live Prediction",
+      "X-Ray + Grad-CAM Heatmap",
+      "Training Curves",
+      "Confusion Matrix",
+      "Sample X-Rays",
+    ],
   },
   {
     id: "scholarsage",
@@ -256,7 +274,7 @@ export const projects = [
     githubBackend: "https://github.com/yasurirashmika/ScholarSage-Backend",
     images: [],
   },
-   {
+  {
     id: "dtl-compiler",
     title: "DTL Compiler",
     badge: "Compiler",

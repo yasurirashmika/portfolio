@@ -1,4 +1,5 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
+import { useEffect } from "react";
 import { projects } from "../data/portfolioData";
 import { useFadeIn } from "../hooks/useFadeIn";
 import "./Projects.css";
@@ -14,9 +15,8 @@ const BADGE_COLORS = {
   "Desktop":    "badge--desktop",
 };
 
-// ── Video Modal (opens fullscreen overlay) ───────────────────────────
+// ── Video Modal ───────────────────────────────────────────────────────
 function VideoModal({ loomId, title, onClose }) {
-  // Close on Escape key
   useEffect(() => {
     const handler = (e) => { if (e.key === "Escape") onClose(); };
     document.addEventListener("keydown", handler);
@@ -44,69 +44,61 @@ function VideoModal({ loomId, title, onClose }) {
   );
 }
 
-// ── Watch Demo button (shown on card) ────────────────────────────────
+// ── Watch Demo button ─────────────────────────────────────────────────
 function DemoButton({ loomId, title }) {
   const [open, setOpen] = useState(false);
   if (!loomId) return null;
-
   return (
     <>
       <button className="proj__demo-btn" onClick={() => setOpen(true)}>
         <PlayIcon /> Watch Demo
       </button>
-      {open && (
-        <VideoModal loomId={loomId} title={title} onClose={() => setOpen(false)} />
-      )}
+      {open && <VideoModal loomId={loomId} title={title} onClose={() => setOpen(false)} />}
     </>
   );
 }
 
-// ── Side-by-side image pair (X-ray vs Grad-CAM) ──────────────────────
-function SideBySide({ images, labels, title }) {
-  if (!images || images.length < 2) return null;
-  return (
-    <div className="proj__sidebyside">
-      {images.map((img, i) => (
-        <div className="proj__sidebyside-item" key={i}>
-          <img src={img} alt={`${title} — ${labels?.[i] || i + 1}`} />
-          {labels?.[i] && (
-            <span className="proj__sidebyside-label">{labels[i]}</span>
-          )}
-        </div>
-      ))}
-    </div>
-  );
-}
-
-// ── Standard image gallery ───────────────────────────────────────────
-function ProjectGallery({ images, title }) {
+// ── Image gallery with arrows, thumbnails, counter, caption ──────────
+function ProjectGallery({ images, labels, title }) {
   const [current, setCurrent] = useState(0);
   if (!images || images.length === 0) return null;
 
+  const prev = () => setCurrent((c) => (c - 1 + images.length) % images.length);
+  const next = () => setCurrent((c) => (c + 1) % images.length);
+
   return (
     <div className="proj__gallery">
-      <div className="proj__gallery-main">
-        <img src={images[current]} alt={`${title} screenshot ${current + 1}`} />
+      {/* Main image */}
+      <div
+        className="proj__gallery-main"
+        data-current={current + 1}
+        data-total={images.length}
+      >
+        <img
+          src={images[current]}
+          alt={labels?.[current] || `${title} screenshot ${current + 1}`}
+        />
         {images.length > 1 && (
           <>
-            <button
-              className="proj__gallery-arrow left"
-              onClick={() => setCurrent((c) => (c - 1 + images.length) % images.length)}
-            >‹</button>
-            <button
-              className="proj__gallery-arrow right"
-              onClick={() => setCurrent((c) => (c + 1) % images.length)}
-            >›</button>
+            <button className="proj__gallery-arrow left" onClick={prev}>‹</button>
+            <button className="proj__gallery-arrow right" onClick={next}>›</button>
           </>
         )}
       </div>
+
+      {/* Caption label */}
+      {labels?.[current] && (
+        <p className="proj__gallery-caption">{labels[current]}</p>
+      )}
+
+      {/* Thumbnails */}
       {images.length > 1 && (
         <div className="proj__gallery-thumbs">
           {images.map((img, i) => (
             <img
               key={i}
               src={img}
-              alt=""
+              alt={labels?.[i] || `${title} ${i + 1}`}
               className={i === current ? "active" : ""}
               onClick={() => setCurrent(i)}
             />
@@ -117,7 +109,7 @@ function ProjectGallery({ images, title }) {
   );
 }
 
-// ── Project card ─────────────────────────────────────────────────────
+// ── Project card ──────────────────────────────────────────────────────
 export default function Projects() {
   const ref = useFadeIn();
   return (
@@ -131,28 +123,23 @@ export default function Projects() {
             <article className="proj__card fade-in" key={project.id}>
               <div className="proj__accent-line" />
 
-              {/* Side-by-side OR standard gallery */}
-              {project.layout === "sidebyside" ? (
-                <SideBySide
-                  images={project.images}
-                  labels={project.imageLabels}
-                  title={project.title}
-                />
-              ) : (
-                <ProjectGallery images={project.images} title={project.title} />
-              )}
-
               <span className={`proj__badge ${BADGE_COLORS[project.badge] || ""}`}>
                 {project.badge}
               </span>
               <h3 className="proj__title">{project.title}</h3>
+
+              {/* Image gallery — all projects use this now */}
+              <ProjectGallery
+                images={project.images}
+                labels={project.imageLabels}
+                title={project.title}
+              />
               <p className="proj__desc">{project.description}</p>
 
               <div className="proj__tags">
                 {project.tech.map((t) => <span className="tag" key={t}>{t}</span>)}
               </div>
 
-              {/* Links row — GitHub + Watch Demo button */}
               <div className="proj__links">
                 {project.github && (
                   <a href={project.github} target="_blank" rel="noreferrer" className="proj__link">

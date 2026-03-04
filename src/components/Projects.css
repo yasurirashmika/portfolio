@@ -140,9 +140,9 @@
   .projects__grid { grid-template-columns: 1fr; }
 }
 
-/* ── Paste these at the bottom of your existing Projects.css ── */
+/* ── Paste ALL of this at the bottom of your existing Projects.css ── */
 
-/* Watch Demo button on card */
+/* Watch Demo button */
 .proj__demo-btn {
   display: inline-flex;
   align-items: center;
@@ -176,12 +176,10 @@
   padding: 1.5rem;
   animation: modalFadeIn 0.2s ease;
 }
-
 @keyframes modalFadeIn {
   from { opacity: 0; }
   to   { opacity: 1; }
 }
-
 .video-modal__box {
   position: relative;
   width: 100%;
@@ -192,12 +190,10 @@
   overflow: hidden;
   animation: modalSlideUp 0.25s ease;
 }
-
 @keyframes modalSlideUp {
   from { transform: translateY(24px); opacity: 0; }
   to   { transform: translateY(0);    opacity: 1; }
 }
-
 .video-modal__close {
   position: absolute;
   top: 0.75rem;
@@ -217,50 +213,104 @@
   transition: background 0.2s ease;
 }
 .video-modal__close:hover { background: var(--accent); }
-
 .video-modal__embed {
   position: relative;
   padding-bottom: 56.25%;
   height: 0;
 }
-
 .video-modal__embed iframe {
   position: absolute;
   top: 0; left: 0;
-  width: 100%;
-  height: 100%;
+  width: 100%; height: 100%;
   border: none;
 }
 
-/* Side-by-side image pair (X-ray vs Grad-CAM) */
-.proj__sidebyside {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 0.5rem;
-  margin-bottom: 1rem;
-}
+/* Gallery — object-contain so charts/heatmaps aren't cropped */
+.proj__gallery { margin-bottom: 0.6rem; }
 
-.proj__sidebyside-item {
+.proj__gallery-main {
+  position: relative;
   border-radius: 6px;
   overflow: hidden;
-  background: var(--surface2);
+  background: #0d0d1a;
 }
-
-.proj__sidebyside-item img {
+.proj__gallery-main img {
   width: 100%;
-  height: 130px;
-  object-fit: cover;
+  height: 200px;
+  object-fit: contain;
   display: block;
 }
 
-.proj__sidebyside-label {
-  display: block;
-  text-align: center;
-  font-size: 0.68rem;
+.proj__gallery-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(0, 0, 0, 0.6);
+  color: #fff;
+  border: none;
+  font-size: 1.4rem;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background var(--transition);
+  padding: 0;
+}
+.proj__gallery-arrow:hover { background: var(--accent); }
+.proj__gallery-arrow.left  { left: 0.5rem; }
+.proj__gallery-arrow.right { right: 0.5rem; }
+
+/* Counter badge "1 / 4" */
+.proj__gallery-main::after {
+  content: attr(data-current) " / " attr(data-total);
+  position: absolute;
+  bottom: 0.4rem;
+  right: 0.5rem;
+  font-size: 0.65rem;
   font-family: var(--font-mono);
-  color: var(--muted);
-  padding: 0.3rem 0;
+  color: rgba(255, 255, 255, 0.75);
+  background: rgba(0, 0, 0, 0.55);
+  padding: 0.1rem 0.45rem;
+  border-radius: 3px;
+  pointer-events: none;
+}
+
+/* Caption under image */
+.proj__gallery-caption {
+  font-size: 0.72rem;
+  font-family: var(--font-mono);
+  color: var(--accent2);
+  text-align: center;
+  padding: 0.3rem 0 0.35rem;
   letter-spacing: 0.05em;
+  margin: 0;
+}
+
+/* Thumbnails */
+.proj__gallery-thumbs {
+  display: flex;
+  gap: 0.4rem;
+  margin-top: 0.4rem;
+  flex-wrap: wrap;
+}
+.proj__gallery-thumbs img {
+  width: 60px;
+  height: 44px;
+  object-fit: contain;
+  background: #0d0d1a;
+  border-radius: 3px;
+  cursor: pointer;
+  border: 2px solid transparent;
+  opacity: 0.5;
+  transition: opacity var(--transition), border-color var(--transition);
+}
+.proj__gallery-thumbs img.active,
+.proj__gallery-thumbs img:hover {
+  opacity: 1;
+  border-color: var(--accent);
 }
 
 @media (max-width: 500px) {
