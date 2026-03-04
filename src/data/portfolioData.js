@@ -1,5 +1,6 @@
 import intern2 from "../../src/assets/images/intern2.png";
 
+
 // ============================================================
 //  PORTFOLIO DATA — Edit all your content here
 //  Change text, links, images, projects, skills, etc.
@@ -214,6 +215,7 @@ export const projects = [
       "Kafka",
     ],
     github: "https://github.com/yasurirashmika/sri-tel-customer-care",
+    loomId: "ea1a3896df7241a4b46145509092cb49",
     images: [],
   },
     {

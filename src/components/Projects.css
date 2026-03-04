@@ -139,3 +139,131 @@
 @media (max-width: 768px) {
   .projects__grid { grid-template-columns: 1fr; }
 }
+
+/* ── Paste these at the bottom of your existing Projects.css ── */
+
+/* Watch Demo button on card */
+.proj__demo-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: var(--accent2);
+  background: rgba(78, 205, 196, 0.1);
+  border: 1px solid rgba(78, 205, 196, 0.3);
+  border-radius: 4px;
+  padding: 0.3rem 0.75rem;
+  cursor: pointer;
+  transition: background 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+  font-family: inherit;
+}
+.proj__demo-btn:hover {
+  background: rgba(78, 205, 196, 0.2);
+  border-color: var(--accent2);
+  color: #fff;
+}
+
+/* Video modal overlay */
+.video-modal__overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.88);
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+  animation: modalFadeIn 0.2s ease;
+}
+
+@keyframes modalFadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+.video-modal__box {
+  position: relative;
+  width: 100%;
+  max-width: 900px;
+  background: var(--surface);
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+  overflow: hidden;
+  animation: modalSlideUp 0.25s ease;
+}
+
+@keyframes modalSlideUp {
+  from { transform: translateY(24px); opacity: 0; }
+  to   { transform: translateY(0);    opacity: 1; }
+}
+
+.video-modal__close {
+  position: absolute;
+  top: 0.75rem;
+  right: 0.75rem;
+  z-index: 10;
+  background: rgba(0, 0, 0, 0.6);
+  color: #fff;
+  border: none;
+  border-radius: 50%;
+  width: 32px;
+  height: 32px;
+  font-size: 0.85rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s ease;
+}
+.video-modal__close:hover { background: var(--accent); }
+
+.video-modal__embed {
+  position: relative;
+  padding-bottom: 56.25%;
+  height: 0;
+}
+
+.video-modal__embed iframe {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%;
+  height: 100%;
+  border: none;
+}
+
+/* Side-by-side image pair (X-ray vs Grad-CAM) */
+.proj__sidebyside {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.proj__sidebyside-item {
+  border-radius: 6px;
+  overflow: hidden;
+  background: var(--surface2);
+}
+
+.proj__sidebyside-item img {
+  width: 100%;
+  height: 130px;
+  object-fit: cover;
+  display: block;
+}
+
+.proj__sidebyside-label {
+  display: block;
+  text-align: center;
+  font-size: 0.68rem;
+  font-family: var(--font-mono);
+  color: var(--muted);
+  padding: 0.3rem 0;
+  letter-spacing: 0.05em;
+}
+
+@media (max-width: 500px) {
+  .video-modal__overlay { padding: 0; }
+  .video-modal__box { border-radius: 0; }
+}

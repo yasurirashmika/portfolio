@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { projects } from "../data/portfolioData";
 import { useFadeIn } from "../hooks/useFadeIn";
 import "./Projects.css";
@@ -14,6 +14,71 @@ const BADGE_COLORS = {
   "Desktop":    "badge--desktop",
 };
 
+// ── Video Modal (opens fullscreen overlay) ───────────────────────────
+function VideoModal({ loomId, title, onClose }) {
+  // Close on Escape key
+  useEffect(() => {
+    const handler = (e) => { if (e.key === "Escape") onClose(); };
+    document.addEventListener("keydown", handler);
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.removeEventListener("keydown", handler);
+      document.body.style.overflow = "";
+    };
+  }, [onClose]);
+
+  return (
+    <div className="video-modal__overlay" onClick={onClose}>
+      <div className="video-modal__box" onClick={(e) => e.stopPropagation()}>
+        <button className="video-modal__close" onClick={onClose}>✕</button>
+        <div className="video-modal__embed">
+          <iframe
+            src={`https://www.loom.com/embed/${loomId}?autoplay=1&hide_owner=true&hide_share=true&hide_title=true&hideEmbedTopBar=true`}
+            title={`${title} demo`}
+            frameBorder="0"
+            allowFullScreen
+          />
+        </div>
+      </div>
+    </div>
+  );
+}
+
+// ── Watch Demo button (shown on card) ────────────────────────────────
+function DemoButton({ loomId, title }) {
+  const [open, setOpen] = useState(false);
+  if (!loomId) return null;
+
+  return (
+    <>
+      <button className="proj__demo-btn" onClick={() => setOpen(true)}>
+        <PlayIcon /> Watch Demo
+      </button>
+      {open && (
+        <VideoModal loomId={loomId} title={title} onClose={() => setOpen(false)} />
+      )}
+    </>
+  );
+}
+
+// ── Side-by-side image pair (X-ray vs Grad-CAM) ──────────────────────
+function SideBySide({ images, labels, title }) {
+  if (!images || images.length < 2) return null;
+  return (
+    <div className="proj__sidebyside">
+      {images.map((img, i) => (
+        <div className="proj__sidebyside-item" key={i}>
+          <img src={img} alt={`${title} — ${labels?.[i] || i + 1}`} />
+          {labels?.[i] && (
+            <span className="proj__sidebyside-label">{labels[i]}</span>
+          )}
+        </div>
+      ))}
+    </div>
+  );
+}
+
+// ── Standard image gallery ───────────────────────────────────────────
 function ProjectGallery({ images, title }) {
   const [current, setCurrent] = useState(0);
   if (!images || images.length === 0) return null;
@@ -24,15 +89,27 @@ function ProjectGallery({ images, title }) {
         <img src={images[current]} alt={`${title} screenshot ${current + 1}`} />
         {images.length > 1 && (
           <>
-            <button className="proj__gallery-arrow left" onClick={() => setCurrent((c) => (c - 1 + images.length) % images.length)}>‹</button>
-            <button className="proj__gallery-arrow right" onClick={() => setCurrent((c) => (c + 1) % images.length)}>›</button>
+            <button
+              className="proj__gallery-arrow left"
+              onClick={() => setCurrent((c) => (c - 1 + images.length) % images.length)}
+            >‹</button>
+            <button
+              className="proj__gallery-arrow right"
+              onClick={() => setCurrent((c) => (c + 1) % images.length)}
+            >›</button>
           </>
         )}
       </div>
       {images.length > 1 && (
         <div className="proj__gallery-thumbs">
           {images.map((img, i) => (
-            <img key={i} src={img} alt="" className={i === current ? "active" : ""} onClick={() => setCurrent(i)} />
+            <img
+              key={i}
+              src={img}
+              alt=""
+              className={i === current ? "active" : ""}
+              onClick={() => setCurrent(i)}
+            />
           ))}
         </div>
       )}
@@ -40,6 +117,7 @@ function ProjectGallery({ images, title }) {
   );
 }
 
+// ── Project card ─────────────────────────────────────────────────────
 export default function Projects() {
   const ref = useFadeIn();
   return (
@@ -51,25 +129,30 @@ export default function Projects() {
         <div className="projects__grid">
           {projects.map((project) => (
             <article className="proj__card fade-in" key={project.id}>
-              {/* Top accent line on hover */}
               <div className="proj__accent-line" />
 
-              {/* Images (if any) */}
-              <ProjectGallery images={project.images} title={project.title} />
+              {/* Side-by-side OR standard gallery */}
+              {project.layout === "sidebyside" ? (
+                <SideBySide
+                  images={project.images}
+                  labels={project.imageLabels}
+                  title={project.title}
+                />
+              ) : (
+                <ProjectGallery images={project.images} title={project.title} />
+              )}
 
-              {/* Badge + title */}
               <span className={`proj__badge ${BADGE_COLORS[project.badge] || ""}`}>
                 {project.badge}
               </span>
               <h3 className="proj__title">{project.title}</h3>
               <p className="proj__desc">{project.description}</p>
 
-              {/* Tech tags */}
               <div className="proj__tags">
                 {project.tech.map((t) => <span className="tag" key={t}>{t}</span>)}
               </div>
 
-              {/* GitHub links */}
+              {/* Links row — GitHub + Watch Demo button */}
               <div className="proj__links">
                 {project.github && (
                   <a href={project.github} target="_blank" rel="noreferrer" className="proj__link">
@@ -81,12 +164,21 @@ export default function Projects() {
                     <GitHubIcon /> Backend
                   </a>
                 )}
+                <DemoButton loomId={project.loomId} title={project.title} />
               </div>
             </article>
           ))}
         </div>
       </div>
     </section>
+  );
+}
+
+function PlayIcon() {
+  return (
+    <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor">
+      <path d="M8 5v14l11-7z" />
+    </svg>
   );
 }
 
