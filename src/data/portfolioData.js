@@ -345,7 +345,7 @@ export const research = {
     "Privacy-Preserving & Sybil-Resistant DAO Voting Using Zero-Knowledge Proofs and Decentralized Identifiers",
   type: "Undergraduate Research",
   institution: "University of Ruhuna — Department of Computer Science",
-  year: "2024 – 2025",
+  year: "2025 – 2026",
   abstract:
     "This research addresses two critical vulnerabilities in decentralized autonomous organization (DAO) governance: privacy exposure and Sybil attacks. The work proposes and implements a novel voting mechanism combining Zero-Knowledge Proofs (ZKPs) to enable anonymous yet verifiable voting, and Decentralized Identifiers (DIDs) for unique identity attestation without relying on centralized authorities. Smart contracts were developed and deployed to manage the full voting lifecycle on-chain, demonstrating a practical system where each participant can prove eligibility and cast a verifiable vote without revealing any personal information. The implementation validates that privacy and integrity can coexist in decentralized governance systems.",
   keywords: [
@@ -358,6 +358,7 @@ export const research = {
     "Ethereum",
   ],
   github: "https://github.com/yasurirashmika/dao-voting-research",
+  link: "https://daovoting.netlify.app/",
 };
 
 // ============================================================

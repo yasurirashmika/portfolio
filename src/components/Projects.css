@@ -125,7 +125,9 @@
   flex-wrap: nowrap;
   overflow-x: auto;
   scrollbar-width: none;
+  max-width: 100%;
 }
+.proj__gallery-thumbs::-webkit-scrollbar { display: none; }
 .proj__gallery-thumbs::-webkit-scrollbar { display: none; }
 .proj__gallery-thumbs img {
   width: 56px;

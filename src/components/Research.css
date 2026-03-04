@@ -95,3 +95,13 @@
   transition: opacity var(--transition);
 }
 .research__link:hover { opacity: 0.7; }
+
+.research__links {
+  display: flex;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+}
+
+.research__link--live {
+  color: var(--accent2);
+}

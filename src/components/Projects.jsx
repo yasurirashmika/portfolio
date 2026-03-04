@@ -96,21 +96,6 @@ function ProjectGallery({ images, labels, title }) {
         {labels?.[current] && (
           <p className="proj__gallery-caption">{labels[current]}</p>
         )}
-
-        {/* Thumbnails */}
-        {images.length > 1 && (
-          <div className="proj__gallery-thumbs">
-            {images.map((img, i) => (
-              <img
-                key={i}
-                src={img}
-                alt={labels?.[i] || `${title} ${i + 1}`}
-                className={i === current ? "active" : ""}
-                onClick={() => setCurrent(i)}
-              />
-            ))}
-          </div>
-        )}
       </div>
 
       {/* Lightbox — rendered via portal to escape card DOM */}
