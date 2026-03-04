@@ -1,8 +1,8 @@
 import intern2 from "../assets/images/intern2.png";
-import pneumoniaGradcam from "../assets/images/projects/pneumonia/pneumonia-gradcam.png";
-import pneumoniaTraining from "../assets/images/projects/pneumonia/pneumonia-training.png";
-import pneumoniaConfusion from "../assets/images/projects/pneumonia/pneumonia-confusion.png";
-import pneumoniaSamples from "../assets/images/projects/pneumonia/pneumonia-samples.png";
+import pneumoniaGradcam from "../assets/images/Projects/pneumonia/pneumonia-gradcam.png";
+import pneumoniaTraining from "../assets/images/Projects/pneumonia/pneumonia-training.png";
+import pneumoniaConfusion from "../assets/images/Projects/pneumonia/pneumonia-confusion.png";
+import pneumoniaSamples from "../assets/images/Projects/pneumonia/pneumonia-samples.png";
 import pneumoniaFlask from "../assets/images/Projects/pneumonia/pneumonia-flask.png";
 
 // ============================================================
