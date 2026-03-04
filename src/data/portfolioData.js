@@ -170,7 +170,7 @@ export const experience = [
     period: "Sep 2020 – Oct 2021",
     type: "secondary",
     description:
-      "Gained early industry exposure in digital content creation and technical communication, building foundational professional skills in collaboration, documentation, and structured content development.",
+      "Gained early industry exposure, Performed structured data scraping and populated a CMS with content, images, and metadata supporting digital content operations.",
     tech: [],
     images: [],
   },
