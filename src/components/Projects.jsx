@@ -3,6 +3,7 @@ import { useEffect } from "react";
 import { projects } from "../data/portfolioData";
 import { useFadeIn } from "../hooks/useFadeIn";
 import "./Projects.css";
+import { createPortal } from "react-dom";
 
 const BADGE_COLORS = {
   "Research":   "badge--research",
@@ -61,51 +62,71 @@ function DemoButton({ loomId, title }) {
 // ── Image gallery with arrows, thumbnails, counter, caption ──────────
 function ProjectGallery({ images, labels, title }) {
   const [current, setCurrent] = useState(0);
+  const [lightbox, setLightbox] = useState(false);
   if (!images || images.length === 0) return null;
 
   const prev = () => setCurrent((c) => (c - 1 + images.length) % images.length);
   const next = () => setCurrent((c) => (c + 1) % images.length);
 
   return (
-    <div className="proj__gallery">
-      {/* Main image */}
-      <div
-        className="proj__gallery-main"
-        data-current={current + 1}
-        data-total={images.length}
-      >
-        <img
-          src={images[current]}
-          alt={labels?.[current] || `${title} screenshot ${current + 1}`}
-        />
+    <>
+      <div className="proj__gallery">
+        {/* Main image */}
+        <div
+          className="proj__gallery-main"
+          data-current={current + 1}
+          data-total={images.length}
+        >
+          <img
+            src={images[current]}
+            alt={labels?.[current] || `${title} screenshot ${current + 1}`}
+            className="proj__gallery-img"
+            onClick={() => setLightbox(true)}
+            title="Click to enlarge"
+          />
+          {images.length > 1 && (
+            <>
+              <button className="proj__gallery-arrow left" onClick={prev}>‹</button>
+              <button className="proj__gallery-arrow right" onClick={next}>›</button>
+            </>
+          )}
+        </div>
+
+        {/* Caption label */}
+        {labels?.[current] && (
+          <p className="proj__gallery-caption">{labels[current]}</p>
+        )}
+
+        {/* Thumbnails */}
         {images.length > 1 && (
-          <>
-            <button className="proj__gallery-arrow left" onClick={prev}>‹</button>
-            <button className="proj__gallery-arrow right" onClick={next}>›</button>
-          </>
+          <div className="proj__gallery-thumbs">
+            {images.map((img, i) => (
+              <img
+                key={i}
+                src={img}
+                alt={labels?.[i] || `${title} ${i + 1}`}
+                className={i === current ? "active" : ""}
+                onClick={() => setCurrent(i)}
+              />
+            ))}
+          </div>
         )}
       </div>
 
-      {/* Caption label */}
-      {labels?.[current] && (
-        <p className="proj__gallery-caption">{labels[current]}</p>
+      {/* Lightbox — rendered via portal to escape card DOM */}
+      {lightbox && createPortal(
+        <div className="proj__lightbox" onClick={() => setLightbox(false)}>
+          <div className="proj__lightbox-box" onClick={(e) => e.stopPropagation()}>
+            <button className="proj__lightbox-close" onClick={() => setLightbox(false)}>✕</button>
+            <img src={images[current]} alt={labels?.[current] || title} />
+            {labels?.[current] && (
+              <p className="proj__lightbox-caption">{labels[current]}</p>
+            )}
+          </div>
+        </div>,
+        document.body
       )}
-
-      {/* Thumbnails */}
-      {images.length > 1 && (
-        <div className="proj__gallery-thumbs">
-          {images.map((img, i) => (
-            <img
-              key={i}
-              src={img}
-              alt={labels?.[i] || `${title} ${i + 1}`}
-              className={i === current ? "active" : ""}
-              onClick={() => setCurrent(i)}
-            />
-          ))}
-        </div>
-      )}
-    </div>
+    </>
   );
 }
 

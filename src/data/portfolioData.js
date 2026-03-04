@@ -240,20 +240,8 @@ export const projects = [
     ],
     github:
       "https://github.com/yasurirashmika/pneumonia-classification-cnn.git",
-    images: [
-      pneumoniaFlask,
-      pneumoniaGradcam,
-      pneumoniaTraining,
-      pneumoniaConfusion,
-      pneumoniaSamples,
-    ],
-    imageLabels: [
-      "Flask App — Live Prediction",
-      "X-Ray + Grad-CAM Heatmap",
-      "Training Curves",
-      "Confusion Matrix",
-      "Sample X-Rays",
-    ],
+    images: [pneumoniaFlask, pneumoniaGradcam, pneumoniaTraining, pneumoniaConfusion, pneumoniaSamples],
+imageLabels: ["Flask App — Live Prediction", "X-Ray + Grad-CAM Heatmap", "Loss & Accuracy Curves", "Confusion Matrix", "Sample X-Rays"],
   },
   {
     id: "scholarsage",
@@ -376,35 +364,63 @@ export const research = {
 //  CERTIFICATIONS
 // ============================================================
 export const certifications = [
+  // Coursera
+  {
+    name: "React Basics",
+    issuer: "Meta — Coursera",
+    icon: "code",
+    link: "https://www.coursera.org/account/accomplishments/records/DQGD83R239GP",
+  },
+  {
+    name: ".NET Full Stack Foundation",
+    issuer: "Board Infinity — Coursera",
+    icon: "code",
+    link: "https://www.coursera.org/account/accomplishments/records/TAS9C24STVZH",
+  },
   {
     name: "The Bits and Bytes of Computer Networking",
-    issuer: "Google / Coursera",
+    issuer: "Google — Coursera",
     icon: "network",
+    link: "https://www.coursera.org/account/accomplishments/records/62DCFPVS7KGF",
   },
+  // HackerRank
+  {
+    name: "SQL (Basic)",
+    issuer: "HackerRank",
+    icon: "code",
+    link: "https://www.hackerrank.com/certificates/a38ec055dbed",
+  },
+  // Great Learning
   {
     name: "UI/UX for Beginners",
     issuer: "Great Learning",
     icon: "design",
+    link: "https://olympus.mygreatlearning.com/courses/55928/certificate",
   },
   {
     name: "Java Programming",
     issuer: "Great Learning",
     icon: "code",
+    link: "https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fverify.mygreatlearning.com%2Fverify%2FPTKEHTZU&lipi=urn%3Ali%3Apage%3Ad_flagship3_profile_view_base_certifications_details%3BBGf2KI3ZQWirNPEZlyPnlA%3D%3D",
   },
   {
     name: "Data Structures in C",
     issuer: "Great Learning",
     icon: "code",
+    link: "https://verify.mygreatlearning.com/verify/DQWLNHBD",
   },
+  // Other
   {
     name: "Certificate Course in Computer Literacy",
     issuer: "Open University of Sri Lanka",
     icon: "cert",
+    link: "https://www.linkedin.com/in/yasuri-rashmika-53bbb82a7/details/certifications/1709169499063/single-media-viewer?type=IMAGE&profileId=ACoAAEoJ5_8Ba4P7o4Akvz3beD5JJ83t6I8hQTM&lipi=urn%3Ali%3Apage%3Ad_flagship3_profile_view_base_certifications_details%3BBGf2KI3ZQWirNPEZlyPnlA%3D%3D",
   },
   {
     name: "Certificate Course in English",
     issuer: "University of Sri Jayewardenepura",
     icon: "language",
+    link: "https://www.linkedin.com/in/yasuri-rashmika-53bbb82a7/details/certifications/1709169587103/single-media-viewer?type=IMAGE&profileId=ACoAAEoJ5_8Ba4P7o4Akvz3beD5JJ83t6I8hQTM&lipi=urn%3Ali%3Apage%3Ad_flagship3_profile_view_base_certifications_details%3BBGf2KI3ZQWirNPEZlyPnlA%3D%3D",
   },
 ];
 

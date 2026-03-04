@@ -12,7 +12,7 @@
   display: flex;
   flex-direction: column;
   position: relative;
-  overflow: hidden;
+  overflow: visible;
   transition: border-color var(--transition), transform var(--transition);
 }
 .proj__card:hover { border-color: rgba(124,106,247,0.35); transform: translateY(-4px); }
@@ -25,6 +25,7 @@
   transform: scaleX(0);
   transform-origin: left;
   transition: transform 0.3s ease;
+  border-radius: var(--radius) var(--radius) 0 0;
 }
 .proj__card:hover .proj__accent-line { transform: scaleX(1); }
 
@@ -120,9 +121,12 @@
 .proj__gallery-thumbs {
   display: flex;
   gap: 0.4rem;
-  margin-top: 0.5rem;
-  flex-wrap: wrap;
+  margin-top: 0.4rem;
+  flex-wrap: nowrap;
+  overflow-x: auto;
+  scrollbar-width: none;
 }
+.proj__gallery-thumbs::-webkit-scrollbar { display: none; }
 .proj__gallery-thumbs img {
   width: 56px;
   height: 42px;
@@ -311,6 +315,66 @@
 .proj__gallery-thumbs img:hover {
   opacity: 1;
   border-color: var(--accent);
+}
+
+.proj__lightbox {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.85);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+  animation: modalFadeIn 0.2s ease;
+}
+
+.proj__lightbox-box {
+  position: relative;
+  max-width: 860px;
+  width: 100%;
+  animation: modalSlideUp 0.22s ease;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.proj__lightbox-box img {
+  width: 100%;
+  max-height: 80vh;
+  object-fit: contain;
+  border-radius: 6px;
+  display: block;
+}
+
+.proj__lightbox-close {
+  position: absolute;
+  top: -2.5rem;
+  right: 0;
+  background: var(--accent);
+  color: #fff;
+  border: none;
+  border-radius: 50%;
+  width: 32px;
+  height: 32px;
+  font-size: 0.85rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
+}
+.proj__lightbox-close:hover { background: var(--accent2); }
+
+.proj__lightbox-caption {
+  text-align: center;
+  font-size: 0.75rem;
+  font-family: var(--font-mono);
+  color: var(--accent2);
+  margin-top: 0.6rem;
+  letter-spacing: 0.05em;
 }
 
 @media (max-width: 500px) {

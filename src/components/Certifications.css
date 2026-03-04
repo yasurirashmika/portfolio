@@ -2,34 +2,91 @@
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
   gap: 1.2rem;
+  align-items: stretch;
+}
+
+.cert__link-wrap {
+  text-decoration: none;
+  display: flex;
+  flex-direction: column;
+}
+
+.certs__grid > div {
+  display: flex;
+  flex-direction: column;
 }
 
 .cert__card {
   display: flex;
-  align-items: center;
-  gap: 1rem;
+  flex-direction: column;
+  gap: 0.75rem;
   background: var(--surface);
   border: 1px solid var(--border);
   border-radius: var(--radius);
   padding: 1.2rem 1.5rem;
   transition: border-color var(--transition);
+  height: 100%;
+  box-sizing: border-box;
 }
 .cert__card:hover { border-color: var(--accent2); }
 
+.cert__card--linked {
+  cursor: pointer;
+  transition: border-color var(--transition), transform var(--transition);
+}
+.cert__card--linked:hover {
+  border-color: rgba(124, 106, 247, 0.45);
+  transform: translateY(-3px);
+}
+
+/* Top row: platform badge + arrow */
+.cert__top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 22px;
+}
+
+.cert__platform {
+  font-size: 0.62rem;
+  font-family: var(--font-mono);
+  font-weight: 600;
+  padding: 0.2rem 0.55rem;
+  border-radius: 3px;
+  letter-spacing: 0.04em;
+  white-space: nowrap;
+}
+
+.cert__arrow {
+  font-size: 0.85rem;
+  color: var(--accent);
+}
+
+/* Bottom row: icon + text */
+.cert__main {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
 .cert__icon {
-  font-size: 1.5rem;
+  font-size: 1.4rem;
   flex-shrink: 0;
 }
 
+.cert__body {
+  flex: 1;
+}
+
 .cert__name {
-  font-size: 0.9rem;
+  font-size: 0.88rem;
   font-weight: 500;
   color: var(--text);
   line-height: 1.4;
 }
 
 .cert__issuer {
-  font-size: 0.78rem;
+  font-size: 0.75rem;
   color: var(--muted);
   margin-top: 0.2rem;
 }
